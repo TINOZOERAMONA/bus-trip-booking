@@ -5,33 +5,6 @@ Bus Trip Booking System
 
 This project is a Bus Trip Booking System designed using Domain-Driven Design (DDD) and Clean Architecture principles.
 
-2. Project Structure
-bus-trip-booking/
-│
-├── src/
-│   ├── domain/
-│   │   ├── entities/
-│   │   ├── value_objects/
-│   │   ├── aggregates/
-│   │   ├── services/
-│   │   ├── events/
-│   │   └── rules/
-│   │
-│   ├── application/
-│   │   ├── use_cases/
-│   │   ├── repositories/
-│   │   └── dtos/
-│   │
-│   ├── infrastructure/
-│   │   ├── repositories/
-│   │   └── event_handlers/
-│   │
-│   └── interface/
-│       └── main.py
-│──tests
-└── README.md
-
-
 
 3. Getting the Project
 
@@ -101,73 +74,73 @@ Do not merge your own branch directly into main.
 
 When your work is ready, create a Pull Request (PR).
 
-Step 1 — Push your branch
-git push
-Step 2 — Open GitHub
+   Step 1 — Push your branch
+     git push
+   Step 2 — Open GitHub
 
-Go to the repository on GitHub.
+      Go to the repository on GitHub.
+      
+      You should see your branch and an option such as:
+      
+      Compare & pull request
+      
+      Click it.
 
-You should see your branch and an option such as:
+   Step 3 — Create the Pull Request
 
-Compare & pull request
+      Set:
+      
+      base: main
+      compare: your-branch
+      
+      Give the Pull Request a clear title.
+      
+      Example:
+      
+      Create Trip entity and TripNumber value object
+      
+      In the description, briefly explain:
+      
+      What you implemented
+      What files you changed
+      Any important decisions
+      Whether tests were added or updated
+      
+      Then click:
 
-Click it.
+      Create pull request
 
-Step 3 — Create the Pull Request
+   Step 4 — Team Review
 
-Set:
+      Another team member should review the Pull Request.
+      
+      They can:
+      
+      Review the changed files
+      Comment on the code
+      Request changes
+      Approve the Pull Request
+      
+      If changes are requested, make the changes on your same branch and push again:
+      
+      git add .
+      git commit -m "Address review comments"
+      git push
+      
+      The Pull Request will automatically update.
 
-base: main
-compare: your-branch
+   Step 5 — Merge
 
-Give the Pull Request a clear title.
-
-Example:
-
-Create Trip entity and TripNumber value object
-
-In the description, briefly explain:
-
-What you implemented
-What files you changed
-Any important decisions
-Whether tests were added or updated
-
-Then click:
-
-Create pull request
-
-Step 4 — Team Review
-
-Another team member should review the Pull Request.
-
-They can:
-
-Review the changed files
-Comment on the code
-Request changes
-Approve the Pull Request
-
-If changes are requested, make the changes on your same branch and push again:
-
-git add .
-git commit -m "Address review comments"
-git push
-
-The Pull Request will automatically update.
-
-Step 5 — Merge
-
-Once the Pull Request has been reviewed and approved, the team can merge it into main.
-
-After merging, everyone should update their local main before starting new work:
-
-git switch main
-git pull origin main
-
-Then create a new branch for the next piece of work:
-
-git switch -c new-branch-name
+      Once the Pull Request has been reviewed and approved, the team can merge it into main.
+      
+      After merging, everyone should update their local main before starting new work:
+      
+      git switch main
+      git pull origin main
+      
+      Then create a new branch for the next piece of work:
+      
+      git switch -c new-branch-name
 
 8. Testing
 
