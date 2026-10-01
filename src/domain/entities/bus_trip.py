@@ -13,8 +13,7 @@ class TripStatus(Enum):
 
 
 class BusTrip(AggregateRoot):
-    """Aggregate B / Aggregate Root. Identity = trip_number (BR2).
-    Invariant (BR3): a seat can never be allocated twice within one trip."""
+    
 
     def __init__(self, trip_number: str, departure_time: datetime, capacity: int):
         super().__init__()
@@ -25,10 +24,10 @@ class BusTrip(AggregateRoot):
         self._trip_number = trip_number
         self._departure_time = departure_time
         self._capacity = capacity
-        self._allocated: set[SeatNumber] = set()
-        self._status = TripStatus.OPEN
+        self._allocated: set[SeatNumber] = set()  #using sets to store because sets don't allow duplicate values
+        self._status = TripStatus.OPEN   #when a trip is created it should start with open
 
-    # identity
+    
     @property
     def trip_number(self): return self._trip_number
     @property
@@ -38,7 +37,7 @@ class BusTrip(AggregateRoot):
     @property
     def status(self): return self._status
     @property
-    def allocated_seats(self): return frozenset(self._allocated)   # read-only copy
+    def allocated_seats(self): return frozenset(self._allocated)   
 
     def is_open(self) -> bool:
         return self._status is TripStatus.OPEN
@@ -46,12 +45,16 @@ class BusTrip(AggregateRoot):
     def is_seat_free(self, seat: SeatNumber) -> bool:
         return seat not in self._allocated
 
-    def allocate_seat(self, seat: SeatNumber) -> None:
-        """The ONLY way to change the seat collection, so BR3 cannot be bypassed."""
+    def allocate_seat(self, seat: SeatNumber) -> None:   #method for booking a seat it doesn't return a value
+        
         if not self.is_open():
-            raise TripClosed(f"Trip {self._trip_number} is no longer accepting bookings")
+            raise TripClosed(
+                f"Trip {self._trip_number} is no longer accepting bookings"
+            )
         if seat.value > self._capacity:
-            raise InvalidSeatNumber(f"Seat {seat} is outside capacity {self._capacity}")
+            raise InvalidSeatNumber(
+                f"Seat {seat} is outside capacity {self._capacity}"
+            )
         if seat in self._allocated:
             raise SeatAlreadyAllocated(
                 f"Seat {seat} is already allocated on trip {self._trip_number}")

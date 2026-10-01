@@ -13,8 +13,7 @@ class BookingStatus(Enum):
 
 
 class Booking(AggregateRoot):
-    """Aggregate A / Aggregate Root. Identity = booking_id.
-    Invariant: always has a valid passenger, trip, seat and status."""
+    
 
     def __init__(self, booking_id: str, passenger: str, trip_number: str,
                  seat: SeatNumber, status: BookingStatus = BookingStatus.PENDING):

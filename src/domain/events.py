@@ -9,3 +9,6 @@ class BookingCreated:
     booking_id: str
     trip_number: str
     seat: SeatNumber
+
+
+    
