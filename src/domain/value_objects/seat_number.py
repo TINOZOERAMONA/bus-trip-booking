@@ -1,12 +1,20 @@
 
+
+from dataclasses import dataclass
+
+from src.domain.exceptions import InvalidSeatNumber
+
+
+@dataclass(frozen=True)
 class SeatNumber:
-    def __init__(self, number: int, capacity: int):
-        if number <= 0:
-            raise ValueError("Seat number must be positive")
+    """Value Object enforcing BR1: a seat number must be a positive whole number."""
+    value: int
 
-        if number > capacity:
-            raise ValueError("Seat number cannot exceed bus capacity")
+    def __post_init__(self):
+        if isinstance(self.value, bool) or not isinstance(self.value, int):
+            raise InvalidSeatNumber("Seat number must be a whole number")
+        if self.value <= 0:
+            raise InvalidSeatNumber("Seat number must be positive")
 
-        self.value = number 
-
-
+    def __str__(self):
+        return str(self.value)
