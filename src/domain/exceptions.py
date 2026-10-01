@@ -4,7 +4,7 @@ class DomainError(Exception):
     """Base class for every business-rule violation."""
 
 
-class InvalidSeatNumber(DomainError):          # BR1
+class InvalidSeatNumber(DomainError):          #represents violation of BR1
     pass
 
 
