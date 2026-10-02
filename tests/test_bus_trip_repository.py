@@ -1,3 +1,5 @@
+#t6
+
 from datetime import datetime
 
 import pytest
@@ -15,7 +17,7 @@ from src.application.services.booking_application_service import (
 
 DEPARTURE = datetime(2026, 10, 2, 8, 0)
 
-
+#tests if trip can be retrieved
 def test_T6_bus_trip_can_be_retrieved_by_trip_number():
     """T6 / BR6: BusTrip is retrieved from the repository by trip number."""
     trip = BusTrip("T001", DEPARTURE, capacity=40)
@@ -29,6 +31,7 @@ def test_T6_bus_trip_can_be_retrieved_by_trip_number():
     assert result.trip_number == "T001"
 
 
+#tests if Unknown trip returns None 
 def test_T6_returns_none_when_bus_trip_does_not_exist():
     """T6 / BR6: repository returns None for an unknown trip number."""
     repository = InMemoryBusTripRepository()
@@ -38,6 +41,7 @@ def test_T6_returns_none_when_bus_trip_does_not_exist():
     assert result is None
 
 
+#tests if Application Service rejects booking for missing trip.
 def test_T6_application_service_rejects_booking_for_missing_trip():
     """T6 / BR6: booking is rejected when the selected trip does not exist."""
     repository = InMemoryBusTripRepository()

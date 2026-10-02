@@ -1,5 +1,6 @@
-import pytest
+#t1
 
+import pytest
 from src.domain.exceptions import InvalidSeatNumber
 from src.domain.value_objects.seat_number import SeatNumber
 

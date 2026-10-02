@@ -1,3 +1,5 @@
+#t5
+
 from src.domain.aggregate.booking import Booking
 from src.domain.events import BookingCreated
 from src.domain.value_objects.seat_number import SeatNumber
