@@ -66,3 +66,5 @@ class Booking(AggregateRoot):
 
     def __hash__(self):
         return hash(self._booking_id)
+
+

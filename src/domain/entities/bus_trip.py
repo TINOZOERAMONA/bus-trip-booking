@@ -68,3 +68,4 @@ class BusTrip(AggregateRoot):
     def __hash__(self):
         return hash(self._trip_number)
 
+
