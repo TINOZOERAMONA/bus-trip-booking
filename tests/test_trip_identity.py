@@ -30,3 +30,5 @@ def test_T2_bus_trip_is_identified_by_trip_number_even_when_state_changes():
     # a trip without a trip number cannot exist
     with pytest.raises(InvalidTrip):
         BusTrip("", DEPARTURE, capacity=2)
+
+

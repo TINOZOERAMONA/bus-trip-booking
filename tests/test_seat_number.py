@@ -5,13 +5,13 @@ from src.domain.value_objects.seat_number import SeatNumber
 
 
 def test_T1_seat_number_must_be_a_positive_whole_number():
-    """T1 / BR1: SeatNumber Value Object accepts only positive whole numbers."""
+    
     # boundary case: smallest valid seat
     assert SeatNumber(1).value == 1
 
     # rejection cases
     with pytest.raises(InvalidSeatNumber):
-        SeatNumber(0)            # boundary just below valid
+        SeatNumber(0)            
     with pytest.raises(InvalidSeatNumber):
         SeatNumber(-5)           # negative
     with pytest.raises(InvalidSeatNumber):
