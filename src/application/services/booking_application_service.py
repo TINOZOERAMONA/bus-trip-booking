@@ -1,5 +1,5 @@
 # application service It's basically the manager/coordinator
-
+from src.application.repositories.bus_trip_repository import BusTripRepository
 
 
 from src.application.DTOs.booking_request import BookingRequest
@@ -17,7 +17,7 @@ class BookingApplicationService:
 
     def __init__(
         self,
-        bus_trip_repository,
+        bus_trip_repository: BusTripRepository,  #making the service depend on the repositor instead of the domain model
         seat_booking_service=None,
         booking_created_handler=None,
     ):
