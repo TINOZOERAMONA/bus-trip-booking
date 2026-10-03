@@ -48,9 +48,10 @@ from src.application.services.booking_application_service import (
 from src.domain.aggregate.booking import BookingStatus
 from src.domain.entities.bus_trip import BusTrip
 from src.domain.value_objects.seat_number import SeatNumber
-from src.infrastructure.repositories.in_memory_bus_trip_repository import (
+from src.infrastructure.in_memory_bus_trip_repository import (
     InMemoryBusTripRepository,
 )
+from src.infrastructure.in_memory_booking_repository import InMemoryBookingRepository
 
 
 DEPARTURE = datetime(2026, 10, 2, 8, 0)
@@ -64,7 +65,9 @@ def test_booking_application_service_completes_booking_and_allocates_seat():
     repository = InMemoryBusTripRepository()
     repository.save(trip)
 
-    service = BookingApplicationService(repository)
+    booking_repository = InMemoryBookingRepository()
+
+    service = BookingApplicationService(repository, booking_repository)
 
     request = BookingRequest(
         passenger_name="Passenger 1",
