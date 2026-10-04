@@ -1,4 +1,4 @@
-from src.domain.repositories.bus_trip_repository import BusTripRepository
+from src.application.repositories.bus_trip_repository import BusTripRepository
 
 
 class InMemoryBusTripRepository(BusTripRepository):
