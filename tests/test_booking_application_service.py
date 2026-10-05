@@ -82,6 +82,7 @@ def test_booking_application_service_completes_booking_and_allocates_seat():
 
     # Verify the output DTO.
     assert response.booking_id == "B001"
+    assert booking_repository.get_by_id("B001") is not None
     assert response.passenger == "Passenger 1"
     assert response.trip_number == "T001"
     assert response.seat_number == 5
