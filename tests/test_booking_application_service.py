@@ -86,7 +86,7 @@ def test_booking_application_service_completes_booking_and_allocates_seat():
     assert response.passenger == "Passenger 1"
     assert response.trip_number == "T001"
     assert response.seat_number == 5
-    assert response.status == BookingStatus.PENDING.value
+    assert response.status == BookingStatus.CONFIRMED.value
 
     # Verify BR5: the event was handled and Aggregate B changed.
     assert SeatNumber(5) in trip.allocated_seats

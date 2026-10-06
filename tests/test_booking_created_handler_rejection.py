@@ -6,7 +6,7 @@ import pytest
 from src.domain.entities.bus_trip import BusTrip
 from src.domain.events import BookingCreated
 from src.domain.exceptions import SeatAlreadyAllocated
-from src.domain.handlers.booking_created_handler import BookingCreatedHandler
+from src.application.handlers.booking_created_handler import BookingCreatedHandler
 from src.domain.value_objects.seat_number import SeatNumber
 
 
