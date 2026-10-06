@@ -8,7 +8,7 @@ from src.application.DTOs.booking_response import BookingResponse
 from src.domain.exceptions import InvalidBooking
 from src.domain.services.seat_booking_service import SeatBookingService
 from src.domain.aggregate.booking import Booking
-from src.domain.handlers.booking_created_handler import BookingCreatedHandler
+from src.application.handlers.booking_created_handler import BookingCreatedHandler
 from src.domain.value_objects.seat_number import SeatNumber
 
 
@@ -27,7 +27,7 @@ class BookingApplicationService:
             seat_booking_service or SeatBookingService()
         )
         self.booking_created_handler = (
-            booking_created_handler or BookingCreatedHandler()
+             booking_created_handler or BookingCreatedHandler()
         )
         self.booking_repository = booking_repository
 
@@ -73,6 +73,8 @@ class BookingApplicationService:
         # BR5: handle the BookingCreated domain event.
         for event in booking.pull_events():
             self.booking_created_handler.handle(event, trip)
+        
+        booking.confirm()
 
         #persist both aggregates only after the handler succeeded
         self.booking_repository.save(booking)

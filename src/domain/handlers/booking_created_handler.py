@@ -1,5 +1,8 @@
-class BookingCreatedHandler:
-    """Handles the BookingCreated domain event."""
+from src.domain.events import BookingCreated
 
-    def handle(self, event, trip):
+
+class BookingCreatedHandler:
+    """Handles a BookingCreated event by allocating the seat on the trip."""
+
+    def handle(self, event: BookingCreated, trip):
         trip.allocate_seat(event.seat)
