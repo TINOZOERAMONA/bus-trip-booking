@@ -3,13 +3,13 @@
 from datetime import datetime
 
 import pytest
-
+from src.infrastructure.in_memory_booking_repository import InMemoryBookingRepository
 from src.application.DTOs.booking_request import BookingRequest
 
 from src.domain.entities.bus_trip import BusTrip
 from src.domain.exceptions import InvalidBooking
 #from src.domain.value_objects.seat_number import SeatNumber
-from src.infrastructure.repositories.in_memory_bus_trip_repository import (
+from src.infrastructure.in_memory_bus_trip_repository import (
     InMemoryBusTripRepository,
 )
 from src.application.services.booking_application_service import (
@@ -62,7 +62,8 @@ def test_T6_returns_none_when_bus_trip_does_not_exist():
 def test_T6_application_service_rejects_booking_for_missing_trip():
     """T6 / BR6: booking is rejected when the selected trip does not exist."""
     repository = InMemoryBusTripRepository()
-    service = BookingApplicationService(repository)
+    booking_repository = InMemoryBookingRepository()
+    service = BookingApplicationService(repository, booking_repository)
 
     request = BookingRequest(
         passenger_name="Passenger 1",

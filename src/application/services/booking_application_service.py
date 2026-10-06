@@ -1,6 +1,6 @@
 # application service It's basically the manager/coordinator
-
-
+from src.application.repositories.bus_trip_repository import BusTripRepository
+from src.application.repositories.booking_repository import BookingRepository
 
 from src.application.DTOs.booking_request import BookingRequest
 from src.application.DTOs.booking_response import BookingResponse
@@ -17,7 +17,8 @@ class BookingApplicationService:
 
     def __init__(
         self,
-        bus_trip_repository,
+        bus_trip_repository: BusTripRepository,  #making the service depend on the repositor instead of the domain model
+        booking_repository: BookingRepository,
         seat_booking_service=None,
         booking_created_handler=None,
     ):
@@ -28,6 +29,7 @@ class BookingApplicationService:
         self.booking_created_handler = (
             booking_created_handler or BookingCreatedHandler()
         )
+        self.booking_repository = booking_repository
 
     def book_seat(
         self,
@@ -71,6 +73,10 @@ class BookingApplicationService:
         # BR5: handle the BookingCreated domain event.
         for event in booking.pull_events():
             self.booking_created_handler.handle(event, trip)
+
+        #persist both aggregates only after the handler succeeded
+        self.booking_repository.save(booking)
+        self.bus_trip_repository.save(trip)    
 
         # Convert the domain object into the output DTO.
         return BookingResponse(

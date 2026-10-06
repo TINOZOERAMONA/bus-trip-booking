@@ -1,4 +1,4 @@
-from src.domain.repositories.bus_trip_repository import BusTripRepository
+from src.application.repositories.bus_trip_repository import BusTripRepository
 
 
 class InMemoryBusTripRepository(BusTripRepository):
@@ -7,7 +7,7 @@ class InMemoryBusTripRepository(BusTripRepository):
     def __init__(self):
         self._trips = {}
 
-    def save(self, trip):
+    def save(self, trip) -> None:
         self._trips[trip.trip_number] = trip
 
     def get_by_trip_number(self, trip_number: str):
