@@ -7,6 +7,9 @@ class InMemoryBookingRepository(BookingRepository):
 
     def get_by_id(self, booking_id: str):
         return self._bookings.get(booking_id)
+    
+    def get_all(self):
+        return list(self._bookings.values())
 
     def save(self, booking) -> None:
         self._bookings[booking.booking_id] = booking

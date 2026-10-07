@@ -10,5 +10,7 @@ class InMemoryBusTripRepository(BusTripRepository):
     def save(self, trip) -> None:
         self._trips[trip.trip_number] = trip
 
+    
+
     def get_by_trip_number(self, trip_number: str):
         return self._trips.get(trip_number)

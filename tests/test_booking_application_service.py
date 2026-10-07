@@ -75,10 +75,7 @@ def test_booking_application_service_completes_booking_and_allocates_seat():
         seat_number=5,
     )
 
-    response = service.book_seat(
-        booking_id="B001",
-        request=request,
-    )
+    response = service.book_seat(request=request)
 
     # Verify the output DTO.
     assert response.booking_id == "B001"
