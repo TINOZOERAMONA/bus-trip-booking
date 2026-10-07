@@ -17,6 +17,7 @@ def test_T5_successful_booking_records_booking_created_event():
         seat=SeatNumber(5)
     )
 
+
     # WHEN:
     # The application/domain layer pulls the events
     # recorded by the Booking aggregate.

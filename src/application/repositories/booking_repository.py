@@ -6,5 +6,9 @@ class BookingRepository(ABC):
         """Retrieve a booking by its booking ID."""
 
     @abstractmethod
+    def get_all(self):
+        """Retrieve all bookings."""
+
+    @abstractmethod
     def save(self, booking) -> None:
         """Store or update a booking"""

@@ -1,4 +1,3 @@
-
 from datetime import datetime
 
 from src.application.DTOs.booking_request import BookingRequest
@@ -12,11 +11,48 @@ from src.infrastructure.in_memory_booking_repository import (
     InMemoryBookingRepository,
 )
 from src.domain.entities.bus_trip import BusTrip
-from src.domain.exceptions import InvalidBooking
+from src.domain.exceptions import DomainError
+
+
+def make_booking(service):
+    """Ask for one booking's details, send it to the application layer, show the result."""
+    print("\n--- Make a Booking ---")
+
+    passenger_name = input("Enter passenger name: ").strip()
+    trip_number = input("Enter trip number: ").strip()
+
+    try:
+        seat_number = int(input("Enter seat number: "))
+
+        request = BookingRequest(
+            passenger_name=passenger_name,
+            trip_number=trip_number,
+            seat_number=seat_number,
+        )
+
+        print("\nProcessing booking...")
+        response = service.book_seat(request)
+
+        print("\n" + "=" * 45)
+        print("       BOOKING RESULT")
+        print("=" * 45)
+        print(f"Booking ID : {response.booking_id}")
+        print(f"Passenger  : {response.passenger}")
+        print(f"Trip       : {response.trip_number}")
+        print(f"Seat       : {response.seat_number}")
+        print(f"Status     : {response.status}")
+        print("=" * 45)
+
+    except ValueError:
+        print("\nBooking failed: Seat number must be a whole number.")
+
+    except DomainError as e:
+        print(f"\nBooking failed: {e}")
 
 
 def main():
-    # Create the infrastructure dependencies.
+    # Create the infrastructure dependencies ONCE, so they remember
+    # every booking made while the program is running.
     trips = InMemoryBusTripRepository()
     bookings = InMemoryBookingRepository()
 
@@ -41,49 +77,15 @@ def main():
     print("Departure: 2 October 2026 at 08:00")
     print("Capacity: 40 seats")
 
-    print("\n--- Make a Booking ---")
+    # The loop keeps the same repositories alive between bookings.
+    while True:
+        make_booking(service)
 
-    # Get booking information from the user.
-    booking_id = input("Enter booking ID: ").strip()
-    passenger_name = input("Enter passenger name: ").strip()
-    trip_number = input("Enter trip number: ").strip()
-
-    try:
-        seat_number = int(input("Enter seat number: "))
-
-        # Create the input DTO.
-        request = BookingRequest(
-            passenger_name=passenger_name,
-            trip_number=trip_number,
-            seat_number=seat_number,
-        )
-
-        print("\nProcessing booking...")
-
-        # Send the request to the application layer.
-        response = service.book_seat(
-            booking_id=booking_id,
-            request=request,
-        )
-
-        # Display the output DTO returned by the application layer.
-        print("\n" + "=" * 45)
-        print("       BOOKING SUCCESSFUL")
-        print("=" * 45)
-        print(f"Booking ID : {response.booking_id}")
-        print(f"Passenger  : {response.passenger}")
-        print(f"Trip       : {response.trip_number}")
-        print(f"Seat       : {response.seat_number}")
-        print(f"Status     : {response.status}")
-        print("=" * 45)
-
-    except ValueError:
-        print("\nBooking failed: Seat number must be a whole number.")
-
-    except InvalidBooking as e:
-        print(f"\nBooking failed: {e}")
+        again = input("\nMake another booking? (y/n): ").strip().lower()
+        if again != "y":
+            print("\nThank you for using the Bus Trip Booking System.")
+            break
 
 
 if __name__ == "__main__":
     main()
-

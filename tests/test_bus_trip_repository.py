@@ -72,7 +72,4 @@ def test_T6_application_service_rejects_booking_for_missing_trip():
     )
 
     with pytest.raises(InvalidBooking):
-        service.book_seat(
-            booking_id="B001",
-            request=request,
-        )
+        service.book_seat(request=request)

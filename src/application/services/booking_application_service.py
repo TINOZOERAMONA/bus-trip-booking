@@ -21,6 +21,7 @@ class BookingApplicationService:
         booking_repository: BookingRepository,
         seat_booking_service=None,
         booking_created_handler=None,
+        
     ):
         self.bus_trip_repository = bus_trip_repository
         self.seat_booking_service = (
@@ -33,9 +34,9 @@ class BookingApplicationService:
 
     def book_seat(
         self,
-        booking_id: str,
         request: BookingRequest,
     ) -> BookingResponse:
+        booking_id = self._generate_booking_id()
 
         # BR6: retrieve the selected trip by trip number.
         trip = self.bus_trip_repository.get_by_trip_number(
@@ -88,3 +89,11 @@ class BookingApplicationService:
             seat_number=booking.seat.value,
             status=booking.status.value,
         )
+    
+
+    def _generate_booking_id(self):
+        bookings = self.booking_repository.get_all()
+
+        next_number = len(bookings) + 1
+
+        return f"B{next_number:03d}"
