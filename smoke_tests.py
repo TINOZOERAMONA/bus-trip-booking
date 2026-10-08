@@ -28,7 +28,6 @@ use_case = BookingApplicationService(trips, bookings)
 # 4. Happy path
 try:
     response = use_case.book_seat(
-        "B001",
         BookingRequest("John", "T001", 12)
     )
     print("B001:", response)
@@ -40,7 +39,6 @@ except Exception as e:
 # 5. Seat already taken
 try:
     response = use_case.book_seat(
-        "B002",
         BookingRequest("Mary", "T001", 12)
     )
     print("B002:", response)
@@ -52,7 +50,6 @@ except InvalidBooking as e:
 # 6. Invalid seat number — BR1
 try:
     response = use_case.book_seat(
-        "B003",
         BookingRequest("Sam", "T001", 0)
     )
     print("B003:", response)
@@ -64,7 +61,6 @@ except Exception as e:
 # 7. Missing trip — BR6
 try:
     response = use_case.book_seat(
-        "B004",
         BookingRequest("Ann", "T999", 5)
     )
     print("B004:", response)
