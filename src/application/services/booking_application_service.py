@@ -12,6 +12,8 @@ from src.application.handlers.booking_created_handler import BookingCreatedHandl
 from src.domain.value_objects.seat_number import SeatNumber
 
 
+from src.domain.handlers.booking_created_handler import BookingCreatedHandler
+
 class BookingApplicationService:
     """Application service that coordinates the booking use case."""
 

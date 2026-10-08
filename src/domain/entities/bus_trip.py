@@ -43,6 +43,8 @@ class BusTrip(AggregateRoot):
         return self._status is TripStatus.OPEN
 
     def is_seat_free(self, seat: SeatNumber) -> bool:
+        if seat.value > self._capacity:
+            return False
         return seat not in self._allocated
 
     def allocate_seat(self, seat: SeatNumber) -> None:   #method for booking a seat it doesn't return a value
