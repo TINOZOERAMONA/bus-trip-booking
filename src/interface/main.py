@@ -65,17 +65,50 @@ def main():
             "T001",
             datetime(2026, 10, 2, 8, 0),
             capacity=40,
-        )
+        ),
+    )
+
+    trips.save(
+        BusTrip(
+            "T002",
+            datetime(2026, 10, 5, 10, 0),
+            capacity=30,
+        ),
+    )
+
+    trips.save(
+
+        BusTrip(
+            "T003",
+            datetime(2026, 10, 10, 9, 0),
+            capacity=45,
+        ),
+
+
     )
 
     print("=" * 45)
     print("       BUS TRIP BOOKING SYSTEM")
     print("=" * 45)
 
-    print("\nAvailable trip:")
+    print("\nAvailable trips:")
     print("Trip number: T001")
     print("Departure: 2 October 2026 at 08:00")
     print("Capacity: 40 seats")
+
+    print()
+
+    print("Trip number: T002")
+    print("Departure: 5 October 2026 at 10:00")
+    print("Capacity: 30 seats")
+
+    print()
+
+    print("Trip number: T003")
+    print("Departure: 10 October 2026 at 9:00")
+    print("Capacity: 45 seats")
+
+
 
     # The loop keeps the same repositories alive between bookings.
     while True:
